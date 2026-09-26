@@ -88,6 +88,19 @@ header::after{
 .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
 @media(max-width:560px){.btn-ghost{margin-left:0;margin-top:.7rem}}
 
+/* Haz de luz en hover (btn, filtros, socials) */
+.btn,.filter-btn,.socials a{position:relative;overflow:hidden}
+.btn::before,.filter-btn::before,.socials a::before{
+  content:'';position:absolute;top:0;bottom:0;left:0;width:38%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.38),rgba(160,190,255,.25),transparent);
+  transform:skewX(-18deg) translateX(-350%);
+  pointer-events:none;opacity:0;
+}
+.btn:hover::before,.filter-btn:hover::before,.socials a:hover::before{
+  opacity:1;animation:beam .7s ease forwards;
+}
+@keyframes beam{to{transform:skewX(-18deg) translateX(400%)}}
+
 /* ---------- SECTIONS ---------- */
 section{padding:5.5rem 5%}
 .section-head{max-width:900px;margin:0 auto 3rem;text-align:center}
@@ -288,12 +301,51 @@ footer small{color:#6b7186;display:block;margin-top:2rem}
 }
 #intro.done{opacity:0;visibility:hidden;pointer-events:none}
 #intro video{width:100%;height:100%;object-fit:cover}
-#soundHint{
-  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
-  font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.65);
-  pointer-events:none;opacity:0;transition:opacity .5s;
+#introStart{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;
+  background:#000;
+  transition:background .6s ease .55s;
 }
-#soundHint.show{opacity:1}
+#intro.zoomed #introStart{background:transparent;pointer-events:none}
+.logo-wrap{position:relative;width:85px;cursor:pointer}
+.logo-wrap img{
+  width:100%;height:auto;display:block;
+  transition:transform .45s ease,filter .45s ease,opacity .45s ease;
+}
+.logo-wrap:hover img{
+  filter:drop-shadow(0 0 12px rgba(36,81,255,.9)) drop-shadow(0 0 30px rgba(36,81,255,.5));
+  transform:scale(1.04);
+}
+.beam-mask{
+  position:absolute;inset:0;pointer-events:none;transition:opacity .4s;
+  -webkit-mask-image:url('PPixel_ico.png');
+  mask-image:url('PPixel_ico.png');
+  -webkit-mask-size:100% 100%;
+  mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+}
+.beam{
+  position:absolute;top:0;bottom:0;left:0;width:38%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.65),rgba(160,190,255,.4),transparent);
+  transform:skewX(-18deg) translateX(-350%);opacity:0;
+}
+.logo-wrap:hover .beam{opacity:1;animation:beam 1.4s ease-in-out infinite}
+#intro.zoomed .beam-mask{opacity:0}
+#intro.zoomed .logo-wrap img{
+  transform:scale(12);opacity:0;filter:blur(18px);
+  mix-blend-mode:screen;
+  transition:transform 1.2s cubic-bezier(.65,0,.85,.4),opacity 1.2s ease,filter 1.2s ease;
+}
+.intro-arrow,.intro-welcome{transition:opacity .4s}
+.intro-arrow svg{display:block;width:24px;height:auto;animation:arrowBounce 1.6s ease-in-out infinite}
+@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.intro-welcome{
+  font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);text-align:center;
+}
+#intro.zoomed .intro-arrow,#intro.zoomed .intro-welcome{opacity:0}
 
 /* ---------- VIDEO MODAL (player popup) ---------- */
 button.card{cursor:pointer;text-align:left;font-family:inherit;color:inherit;width:100%;padding:0}
@@ -328,15 +380,27 @@ button.card{cursor:pointer;text-align:left;font-family:inherit;color:inherit;wid
 
 <!-- INTRO -->
 <div id="intro">
-  <video id="introVideo" autoplay playsinline muted src="Intro.mp4"></video>
+  <video id="introVideo" playsinline muted preload="auto" src="Intro.mp4"></video>
   <audio id="introAudio" src="intro_audio.webm" preload="auto"></audio>
-  <span id="soundHint">Toca para activar el sonido</span>
+  <div id="introStart">
+    <div class="logo-wrap">
+      <img id="introLogo" src="PPixel_ico.png" alt="Perfect Pixel">
+      <div class="beam-mask"><div class="beam"></div></div>
+    </div>
+    <div class="intro-arrow">
+      <svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 58 C 20 40, 20 30, 20 8" stroke="#2451ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M11 17 L20 7 L29 17" stroke="#2451ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <p class="intro-welcome">Bienvenido, toca para empezar.</p>
+  </div>
 </div>
 
 <nav>
   <ul>
     <li><a href="http://perfectpixel-aisolutions.com" target="_blank" rel="noopener" aria-label="Web"><i class="fas fa-globe"></i></a></li>
-    <li><a href="https://www.linkedin.com/in/perfectpixelmk" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+    <li><a href="https://www.linkedin.com/in/alexander-growthpartner/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
     <li><a href="https://www.instagram.com/perfectpixel.mk" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
     <li><a href="https://www.facebook.com/perfectpixel.mk" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
     <li><a href="https://wa.link/mctip8" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
@@ -569,7 +633,7 @@ button.card{cursor:pointer;text-align:left;font-family:inherit;color:inherit;wid
         <li>Agenda, responde y deriva consultas</li>
         <li>Disponible 24/7, todos los días del año</li>
       </ul>
-      <a class="btn btn-blue" href="https://pixie-agent-ai-businnes-solutions-517371493409.us-west1.run.app/" target="_blank" rel="noopener">🗣️ Hablar con Personal Agent</a>
+      <a class="btn btn-blue" href="https://pixie-agent-ai-businnes-solutions-517371493409.us-west1.run.app/" target="_blank" rel="noopener">Hablar con Personal Agent</a>
     </div>
   </div>
 </section>
@@ -593,7 +657,7 @@ button.card{cursor:pointer;text-align:left;font-family:inherit;color:inherit;wid
   <h2>Desarrollemos tu proyecto</h2>
   <p class="footnote">con eficiencia y buen gusto</p>
   <div class="socials">
-    <a href="https://www.linkedin.com/in/perfectpixelmk" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/alexander-growthpartner/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://www.instagram.com/perfectpixel.mk" target="_blank" rel="noopener">Instagram</a>
     <a href="https://www.facebook.com/perfectpixel.mk" target="_blank" rel="noopener">Facebook</a>
     <a href="https://wa.link/mctip8" target="_blank" rel="noopener">WhatsApp</a>
@@ -641,40 +705,34 @@ function closeVideoModal(){
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVideoModal()});
 
-// Intro: video directo con sonido inmediato. Sin botones. Fade al terminar.
+// Intro cinematográfico: click = sonido inmediato + zoom hacia el video
 (function(){
   const intro=document.getElementById('intro');
   const video=document.getElementById('introVideo');
   const audio=document.getElementById('introAudio');
-  const hint=document.getElementById('soundHint');
-  if(!intro||!video)return;
-  let ended=false,listening=false;
+  const start=document.getElementById('introStart');
+  if(!intro||!video||!start)return;
+  let ended=false,started=false;
+  document.body.style.overflow='hidden';
   const end=()=>{
     if(ended)return;ended=true;
-    audio.pause();
-    hint.classList.remove('show');
+    document.body.style.overflow='';
+    window.scrollTo({top:0,left:0,behavior:'instant'});
     intro.classList.add('done');
-    window.removeEventListener('pointerdown',onGesture);
-    window.removeEventListener('keydown',onGesture);
   };
-  function onGesture(){
-    try{audio.currentTime=video.currentTime||0}catch(e){}
+  start.addEventListener('click',function(){
+    if(started)return;started=true;
+    intro.classList.add('zoomed');
+    audio.volume=0.15;
     audio.play().catch(function(){});
-    hint.classList.remove('show');
-    window.removeEventListener('pointerdown',onGesture);
-    window.removeEventListener('keydown',onGesture);
-  }
-  video.play().catch(function(){end()});
-  audio.play().then(function(){
-    hint.classList.remove('show');
-  }).catch(function(){
-    if(!listening){listening=true;hint.classList.add('show');
-      window.addEventListener('pointerdown',onGesture);
-      window.addEventListener('keydown',onGesture);}
+    setTimeout(function(){
+      if(ended)return;
+      video.play().catch(function(){end()});
+    },900);
+    setTimeout(function(){if(!ended&&video.paused)end()},4500);
   });
   video.addEventListener('ended',end);
-  video.addEventListener('error',end);
-  setTimeout(function(){if(video.readyState<2)end()},15000);
+  video.addEventListener('error',function(){if(started)end()});
 })();
 </script>
 </body>
