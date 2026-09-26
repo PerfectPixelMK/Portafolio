@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfect Pixel — Ecosistemas Digitales Integrados con IA</title>
+<link rel="icon" href="PPixel_ico.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+@font-face{
+  font-family:'Ballega';
+  src:url('fonts/Ballega-BL9EB.otf') format('opentype');
+}
+@font-face{
+  font-family:'Motterdam';
+  src:url('fonts/Motterdam-MVanr.otf') format('opentype');
+}
+:root{
+  --blue:#2451ff;
+  --ink:#0b0b0f;
+  --paper:#f6f6f2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:var(--ink);
+  color:#fff;
+  overflow-x:hidden;
+}
+h1,h2,h3,.display{font-family:'Ballega',sans-serif;letter-spacing:.01em}
+.script{font-family:'Motterdam',cursive;color:var(--blue);font-weight:400}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:center;align-items:center;
+  padding:1rem 5%;
+  background:linear-gradient(180deg,rgba(11,11,15,.85),transparent);
+  backdrop-filter:blur(6px);
+}
+nav ul{display:flex;gap:1.2rem;list-style:none}
+nav ul li{width:40px;height:40px}
+nav ul a{
+  width:100%;height:100%;border-radius:999px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);color:#fff;font-size:1.05rem;
+  transition:background .3s,color .3s;
+}
+nav ul a:hover{background:var(--blue);color:#fff}
+
+/* ---------- HERO ---------- */
+header{
+  position:relative;min-height:92vh;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;
+}
+header video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:brightness(.32) saturate(1.2);
+}
+header::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,transparent 25%,rgba(11,11,15,.9) 100%);
+}
+.hero-content{position:relative;z-index:2;padding:0 5%;max-width:820px}
+.hero-tag{font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:#9db1ff;margin-bottom:.6rem}
+.hero-title{
+  display:flex;align-items:baseline;justify-content:center;gap:.35em;flex-wrap:wrap;
+  font-size:clamp(2.4rem,7.5vw,4.6rem);line-height:1;
+}
+.hero-growth{font-family:'Motterdam',cursive;font-size:1.08em;color:#fff;display:inline-block;transform:rotate(-3deg)}
+.hero-partner{font-family:'Ballega',sans-serif;text-transform:uppercase;color:var(--blue)}
+.hero-tagline{font-family:'Ballega',sans-serif;font-size:clamp(1.05rem,2.6vw,1.6rem);color:#d5d9e6;margin-top:.55rem}
+.hero-sub{
+  margin:.9rem auto 1.5rem;max-width:540px;
+  font-size:clamp(.92rem,1.3vw,1.05rem);color:#d5d9e6;line-height:1.55;
+}
+.btn{
+  display:inline-block;padding:.85rem 2rem;border-radius:999px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 8px 30px rgba(36,81,255,.45)}
+.btn-blue:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(36,81,255,.6)}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);margin-left:.8rem}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+@media(max-width:560px){.btn-ghost{margin-left:0;margin-top:.7rem}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:5.5rem 5%}
+.section-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+.section-head .script{font-size:clamp(1.6rem,3.5vw,2.6rem);display:block;transform:rotate(-2deg)}
+.section-head h2{font-size:clamp(1.8rem,4.5vw,3rem);text-transform:uppercase;line-height:1.05}
+.section-head p{margin-top:.9rem;color:#aeb4c7;max-width:600px;margin-inline:auto;line-height:1.6}
+
+/* ---------- PROPUESTA ---------- */
+#propuesta{background:var(--paper);color:var(--ink);padding-top:0}
+#propuesta .section-head{margin-top:3.5rem}
+#propuesta .section-head p{color:#555}
+.pilares{
+  max-width:1100px;margin:0 auto;
+  display:flex;flex-wrap:nowrap;justify-content:center;gap:1.4rem;
+}
+.pilar{
+  flex:1 1 0;min-width:0;
+  background:#fff;border-radius:16px;padding:1.6rem 1.4rem 1.4rem;
+  border:1px solid #e5e5e0;position:relative;overflow:hidden;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.pilar:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(11,11,15,.12);border-color:var(--blue)}
+.pilar::before{content:attr(data-n);position:absolute;top:.6rem;right:1rem;font-family:'Ballega',sans-serif;font-size:2rem;color:#555;line-height:1}
+.pilar .ico{
+  width:44px;height:44px;border-radius:12px;margin-bottom:.7rem;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.35rem;color:var(--blue);background:rgba(36,81,255,.1);
+}
+.pilar h3{font-size:1rem;text-transform:uppercase;color:var(--ink);margin:.4rem 0 .2rem;line-height:1.25}
+.pilar p{
+  font-size:.85rem;color:#555;line-height:1.5;
+  opacity:0;max-height:0;transform:translateY(4px);
+  transition:opacity .3s,transform .3s,max-height .4s;
+}
+.pilar:hover p{opacity:1;max-height:220px;transform:translateY(0)}
+@media(max-width:700px){.pilares{flex-wrap:wrap}.pilar{flex:1 1 42%}}
+
+/* Skills: franja negra walking loop */
+.skills-loop{
+  width:100vw;margin-left:calc(50% - 50vw);
+  background:var(--ink);overflow:hidden;padding:.85rem 0;
+}
+.skills-track{
+  display:flex;align-items:center;gap:1.2rem;width:max-content;
+  animation:walk 32s linear infinite;
+}
+.skills-loop:hover .skills-track{animation-play-state:paused}
+.skills-track span{
+  color:#fff;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+}
+.skills-track span b{color:#8fa4ff;font-weight:700}
+.skills-track em{color:var(--blue);font-style:normal;font-size:.55rem;line-height:1;flex:0 0 auto}
+@keyframes walk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- FILTROS ---------- */
+.filters{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;
+  max-width:900px;margin:0 auto 2.5rem;
+}
+.filter-btn{
+  padding:.55rem 1.4rem;border-radius:999px;cursor:pointer;
+  font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  background:#171a24;color:#aeb4c7;border:1px solid rgba(255,255,255,.12);
+  transition:all .2s;font-family:inherit;
+}
+.filter-btn:hover{border-color:var(--blue);color:#fff}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* ---------- PORTFOLIO GRID ---------- */
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:1.5rem;max-width:1200px;margin:0 auto;
+}
+.card{
+  border-radius:16px;overflow:hidden;
+  background:transparent;border:1px solid rgba(255,255,255,.09);
+  display:flex;flex-direction:column;
+  transition:transform .25s,border-color .25s;
+  position:relative;
+}
+.card:hover{transform:translateY(-6px);border-color:var(--blue)}
+.card.hide{display:none}
+.card .thumb{
+  position:relative;height:180px;overflow:hidden;background:#171a24;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.card .thumb img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  transition:transform .4s;
+}
+.card:hover .thumb img{transform:scale(1.06)}
+.card .cat{
+  display:inline-block;margin:1.2rem 1.4rem 0;align-self:flex-start;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#9db1ff;
+  border:1px solid rgba(143,164,255,.35);border-radius:999px;padding:.3rem .8rem;
+}
+.card .body{padding:1rem 1.4rem 1.4rem;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.25rem;text-transform:uppercase;line-height:1.05}
+.card p{margin-top:.5rem;font-size:.85rem;color:#aeb4c7;line-height:1.5;flex:1}
+.card .go{
+  margin-top:1rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;
+  color:#fff;display:inline-flex;align-items:center;gap:.4rem;
+}
+.card .go::after{content:'→';color:var(--blue);transition:transform .2s}
+.card:hover .go::after{transform:translateX(6px)}
+
+/* ---------- AGENTICA / IFRAME PREVIEW ---------- */
+#agentica{background:linear-gradient(180deg,#0b0b0f,#101530 60%,#0b0b0f)}
+.split-wrap{
+  max-width:1100px;margin:0 auto;display:grid;gap:3rem;align-items:center;
+  grid-template-columns:1fr 1fr;
+}
+@media(max-width:860px){.split-wrap{grid-template-columns:1fr}}
+.preview-frame{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.15);box-shadow:0 30px 80px rgba(36,81,255,.2);
+  background:#fff;aspect-ratio:4/3;
+}
+.preview-frame iframe{
+  position:absolute;top:0;left:0;
+  width:200%;height:200%;border:0;
+  transform:scale(.5);transform-origin:top left;
+  pointer-events:none;
+}
+.preview-frame .overlay-link{
+  position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
+  padding:1.2rem;
+  background:linear-gradient(180deg,transparent 55%,rgba(11,11,15,.85));
+}
+.browser-bar{
+  position:absolute;top:0;left:0;right:0;z-index:2;
+  display:flex;align-items:center;gap:.5rem;
+  background:#1a1d28;padding:.55rem .9rem;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.browser-bar .dot{width:10px;height:10px;border-radius:50%}
+.browser-bar .url{
+  flex:1;background:#0b0b0f;border-radius:6px;padding:.3rem .8rem;
+  font-size:.72rem;color:#8fa4ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.agent-list{list-style:none;margin:1.5rem 0 2rem}
+.agent-list li{
+  padding:.7rem 0;border-bottom:1px dashed rgba(255,255,255,.15);
+  font-size:.95rem;color:#cfd4e4;display:flex;gap:.7rem;align-items:baseline;
+}
+.agent-list li::before{content:'✦';color:var(--blue)}
+
+/* ---------- AGENTE EJECUTIVO ---------- */
+#ejecutivo{background:#0b0b0f}
+.chat-frame{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 30px 80px rgba(36,81,255,.2);
+  background:#0e1118;aspect-ratio:4/3;
+}
+.chat-frame .browser-bar .url{color:#9db1ff}
+.chat-roll{
+  position:absolute;top:44px;left:0;right:0;bottom:0;
+  overflow-y:auto;overscroll-behavior:contain;
+  scrollbar-width:thin;scrollbar-color:var(--blue) #171a24;
+}
+.chat-roll::-webkit-scrollbar{width:8px}
+.chat-roll::-webkit-scrollbar-track{background:#171a24}
+.chat-roll::-webkit-scrollbar-thumb{background:var(--blue);border-radius:99px}
+.chat-roll img{width:100%;display:block}
+
+/* ---------- PERFIL ---------- */
+#perfil{background:var(--paper);color:var(--ink)}
+.perfil-wrap{
+  max-width:1000px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;
+  gap:3rem;align-items:center;
+}
+@media(max-width:860px){.perfil-wrap{grid-template-columns:1fr;text-align:center;justify-items:center}}
+.perfil-wrap img{border-radius:18px;box-shadow:12px 12px 0 var(--blue)}
+.perfil-wrap .script{font-size:2rem;display:block;transform:rotate(-2deg)}
+.perfil-wrap h2{font-size:clamp(1.7rem,3.5vw,2.6rem);text-transform:uppercase;line-height:1}
+.perfil-wrap p{margin-top:1rem;color:#555;line-height:1.6}
+.perfil-wrap .btn{margin-top:1.6rem}
+
+/* ---------- FOOTER ---------- */
+footer{padding:5rem 5% 3rem;text-align:center}
+footer .script{font-size:clamp(1.8rem,4vw,3rem);display:block}
+footer h2{font-size:clamp(1.8rem,5vw,3.6rem);text-transform:uppercase;margin:.2rem 0 .4rem}
+.footnote{font-family:'Ballega',sans-serif;font-size:clamp(.95rem,2vw,1.25rem);color:#8fa4ff;margin:0 0 1.8rem}
+.socials{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.socials a{
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;
+  padding:.7rem 1.6rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.12em;
+  transition:border-color .2s,color .2s;
+}
+.socials a:hover{border-color:var(--blue);color:var(--blue)}
+footer small{color:#6b7186;display:block;margin-top:2rem}
+
+/* ---------- INTRO ---------- */
+#intro{
+  position:fixed;inset:0;z-index:100;background:#000;
+  transition:opacity .8s,visibility .8s;
+}
+#intro.done{opacity:0;visibility:hidden;pointer-events:none}
+#intro video{width:100%;height:100%;object-fit:cover}
+#soundHint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.65);
+  pointer-events:none;opacity:0;transition:opacity .5s;
+}
+#soundHint.show{opacity:1}
+
+/* ---------- VIDEO MODAL (player popup) ---------- */
+button.card{cursor:pointer;text-align:left;font-family:inherit;color:inherit;width:100%;padding:0}
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;background:rgba(11,11,15,.9);
+  display:none;align-items:center;justify-content:center;padding:5%;
+  backdrop-filter:blur(6px);
+}
+.modal-overlay.open{display:flex}
+.modal-box{
+  position:relative;width:min(960px,100%);
+  aspect-ratio:16/9;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 30px 80px rgba(36,81,255,.25);
+  background:#000;
+}
+.modal-box iframe{width:100%;height:100%;border:0;display:block}
+.modal-close{
+  position:absolute;top:.8rem;right:.8rem;z-index:2;
+  width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(11,11,15,.75);color:#fff;font-size:1rem;
+  transition:background .2s;
+}
+.modal-close:hover{background:var(--blue)}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <video id="introVideo" autoplay playsinline muted src="Intro.mp4"></video>
+  <audio id="introAudio" src="intro_audio.webm" preload="auto"></audio>
+  <span id="soundHint">Toca para activar el sonido</span>
+</div>
+
+<nav>
+  <ul>
+    <li><a href="http://perfectpixel-aisolutions.com" target="_blank" rel="noopener" aria-label="Web"><i class="fas fa-globe"></i></a></li>
+    <li><a href="https://www.linkedin.com/in/perfectpixelmk" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+    <li><a href="https://www.instagram.com/perfectpixel.mk" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+    <li><a href="https://www.facebook.com/perfectpixel.mk" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+    <li><a href="https://wa.link/mctip8" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header>
+  <video autoplay playsinline muted loop src="bg-video.mp4"></video>
+  <div class="hero-content">
+    <p class="hero-tag">Dirección Técnica IA · Automatización · NLP</p>
+    <h1 class="hero-title"><span class="hero-growth">Growth</span><span class="hero-partner">Partner</span></h1>
+    <p class="hero-tagline">el compañero que buscas</p>
+    <p class="hero-sub">Desarrollo asistentes de IA, pilotos y automatizaciones que resuelven la autogestión de freelancers y profesionales independientes. Visión técnica, estratégica y comercial.</p>
+    <a class="btn btn-blue" href="#portfolio">Ver portafolio</a>
+    <a class="btn btn-ghost" href="#propuesta">La propuesta</a>
+  </div>
+</header>
+
+<!-- PROPUESTA -->
+<section id="propuesta">
+  <div class="skills-loop">
+    <div class="skills-track">
+      <span><b>+3 años</b> en Inteligencia Artificial</span><em>●</em>
+      <span><b>+2 años</b> en IA Generativa</span><em>●</em>
+      <span><b>✓</b> NLP & LLMs en producción</span><em>●</em>
+      <span><b>✓</b> Python · Git · Full-Stack</span><em>●</em>
+      <span><b>✓</b> Liderazgo técnico remoto</span><em>●</em>
+      <span><b>✓</b> Pensamiento crítico y comunicación</span><em>●</em>
+      <span><b>+3 años</b> en Inteligencia Artificial</span><em>●</em>
+      <span><b>+2 años</b> en IA Generativa</span><em>●</em>
+      <span><b>✓</b> NLP & LLMs en producción</span><em>●</em>
+      <span><b>✓</b> Python · Git · Full-Stack</span><em>●</em>
+      <span><b>✓</b> Liderazgo técnico remoto</span><em>●</em>
+      <span><b>✓</b> Pensamiento crítico y comunicación</span><em>●</em>
+    </div>
+  </div>
+  <div class="section-head reveal">
+    <span class="script">Dirección de IA</span>
+    <h2>Ecosistemas digitales integrados con IA</h2>
+    <p>Capacidad comprobable para desarrollar ideas, pilotos y pruebas: de la arquitectura del modelo al Go-to-Market.</p>
+  </div>
+  <div class="pilares">
+    <div class="pilar reveal" data-n="01">
+      <div class="ico"><i class="fas fa-brain"></i></div>
+      <h3>IA & Automatización</h3>
+      <p>Agentes inteligentes, NLP y workflows automatizados. Pilotos SaaS con Python, Git y despliegue continuo.</p>
+    </div>
+    <div class="pilar reveal" data-n="02">
+      <div class="ico"><i class="fas fa-database"></i></div>
+      <h3>Modelos & Datos</h3>
+      <p>Redes neuronales y reconocimiento de patrones: diseño, entrenamiento y evaluación de modelos aplicados a negocio.</p>
+    </div>
+    <div class="pilar reveal" data-n="03">
+      <div class="ico"><i class="fas fa-code"></i></div>
+      <h3>Software & Producto</h3>
+      <p>Webs inteligentes, CRM, dashboards y arquitectura full-stack alineados a objetivos de negocio.</p>
+    </div>
+    <div class="pilar reveal" data-n="04">
+      <div class="ico"><i class="fas fa-chart-line"></i></div>
+      <h3>Estrategia & Growth</h3>
+      <p>Visión comercial: entender los pains del sector freelance y convertirlos en herramientas de valor e impacto social.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-head reveal">
+    <span class="script">Casos reales</span>
+    <h2>Portafolio</h2>
+    <p>Desarrollos en producción: marcas, dashboards, webs inteligentes e IA agéntica.</p>
+  </div>
+
+  <div class="filters reveal">
+    <button class="filter-btn active" onclick="filterGallery('all',this)">Todos</button>
+    <button class="filter-btn" onclick="filterGallery('marca',this)">Marca + Producto</button>
+    <button class="filter-btn" onclick="filterGallery('dashboard',this)">Dashboards</button>
+    <button class="filter-btn" onclick="filterGallery('web',this)">Desarrollo Web</button>
+    <button class="filter-btn" onclick="filterGallery('audiovisual',this)">Audiovisual</button>
+  </div>
+
+  <div class="grid" id="gallery">
+    <a class="card reveal" data-category="marca" href="https://v0-operseg.vercel.app/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/Operseg-Landing.jpg" alt="OperSeg"></div>
+      <span class="cat">Marca + Producto + Landing</span>
+      <div class="body">
+        <h3>OperSeg</h3>
+        <p>Desarrollo integral de marca y landing page para empresa de seguridad privada.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="dashboard" href="https://suburbioestudios.github.io/TresDashoard/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/TresD Dashboard.jpg" alt="Tres Dashboard"></div>
+      <span class="cat">Dashboard Inteligente</span>
+      <div class="body">
+        <h3>Tres Dashboard</h3>
+        <p>Paneles interactivos de gestión con visualización de datos en tiempo real.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="dashboard" href="https://smart-padel2.base44.app/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/FlashPadel.jpg" alt="Smart Padel"></div>
+      <span class="cat">Dashboard Inteligente</span>
+      <div class="body">
+        <h3>Smart Padel</h3>
+        <p>Panel de gestión para canchas de pádel (Brasil): reservas, horarios y administración.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="dashboard" href="https://opersegia-coding.github.io/opersegcrm/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/CRM.jpg" alt="OperSeg CRM"></div>
+      <span class="cat">Dashboard Inteligente</span>
+      <div class="body">
+        <h3>OperSeg CRM</h3>
+        <p>Sistema CRM de gestión comercial y clientes para seguridad privada.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="web" href="https://cva-demo2.base44.app/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/CVA.jpg" alt="Control Vehicular Argentino"></div>
+      <span class="cat">Desarrollo Web · B2B Industrial</span>
+      <div class="body">
+        <h3>Control Vehicular Argentino</h3>
+        <p>Líder en diagnóstico automotriz y VTV. 29 años de trayectoria, 27 países.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="web" href="https://v0-website-optimization-beta.vercel.app/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/Realtor.jpg" alt="Las Vegas Realtor"></div>
+      <span class="cat">Desarrollo Web · Real Estate</span>
+      <div class="body">
+        <h3>Las Vegas Realtor</h3>
+        <p>Sitio optimizado para captación de clientes inmobiliarios en Las Vegas.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="web" href="https://demoinmobiliaria.base44.app/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/inmobiliaria.jpg" alt="Saenz Inmobiliaria"></div>
+      <span class="cat">Desarrollo Web · Inmobiliaria</span>
+      <div class="body">
+        <h3>Saenz Inmobiliaria</h3>
+        <p>Plataforma web para gestión y exhibición de propiedades.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="web" href="https://v0-hostel-test.vercel.app/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/Franchise.jpg" alt="Hostel Franchise"></div>
+      <span class="cat">Desarrollo Web · Franquicia</span>
+      <div class="body">
+        <h3>Hostel Franchise</h3>
+        <p>Web para franquicia de hostels con diseño orientado a reservas.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <a class="card reveal" data-category="audiovisual" href="https://suburbioestudios.github.io/Portafolio/" target="_blank" rel="noopener">
+      <div class="thumb"><img loading="lazy" src="Thumb/Sello Discografico.jpg" alt="Portafolio Suburbio"></div>
+      <span class="cat">Audiovisual</span>
+      <div class="body">
+        <h3>Portafolio Suburbio</h3>
+        <p>Producción audiovisual e identidad de marca para sello discográfico.</p>
+        <span class="go">Ver proyecto</span>
+      </div>
+    </a>
+    <button class="card reveal" data-category="audiovisual" type="button" onclick="openVideoModal('0mqfILu-9y8')">
+      <div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/0mqfILu-9y8/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0mqfILu-9y8/mqdefault.jpg'" alt="Avatar IA"></div>
+      <span class="cat">Audiovisual</span>
+      <div class="body">
+        <h3>Avatar IA</h3>
+        <p>Creación de presentador virtual con inteligencia artificial para producción audiovisual.</p>
+        <span class="go">▶ Ver video</span>
+      </div>
+    </button>
+  </div>
+</section>
+
+<!-- WEB AGENTICA -->
+<section id="agentica">
+  <div class="section-head reveal">
+    <span class="script">Web agéntica</span>
+    <h2>Tu web que piensa y responde</h2>
+    <p>Agentes de IA integrados en tu web, redes y call center. Atención conversacional 24/7, sin vacaciones.</p>
+  </div>
+  <div class="split-wrap">
+    <a class="preview-frame reveal" href="http://perfectpixel-aisolutions.com" target="_blank" rel="noopener">
+      <div class="browser-bar">
+        <span class="dot" style="background:#ff5f57"></span>
+        <span class="dot" style="background:#febc2e"></span>
+        <span class="dot" style="background:#28c840"></span>
+        <span class="url">perfectpixel-aisolutions.com</span>
+      </div>
+      <iframe src="http://perfectpixel-aisolutions.com" loading="lazy" title="Preview Perfect Pixel AI Solutions" tabindex="-1" scrolling="no"></iframe>
+      <div class="overlay-link"></div>
+    </a>
+    <div class="reveal">
+      <ul class="agent-list">
+        <li>Agentes integrados en web, redes sociales y call center</li>
+        <li>Calificación automática de prospectos</li>
+        <li>Conversión guiada dentro del propio sitio</li>
+        <li>Operación continua, escalable y medible</li>
+      </ul>
+      <a class="btn btn-blue" href="http://perfectpixel-aisolutions.com" target="_blank" rel="noopener">Ver nuestra web agéntica</a>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTE EJECUTIVO -->
+<section id="ejecutivo">
+  <div class="section-head reveal">
+    <span class="script">Personal Agent</span>
+    <h2>Agente ejecutivo personal</h2>
+    <p>Un asistente ejecutivo con voz que atiende clientes, responde consultas y agenda oportunidades por vos.</p>
+  </div>
+  <div class="split-wrap">
+    <div class="chat-frame reveal">
+      <div class="browser-bar">
+        <span class="dot" style="background:#ff5f57"></span>
+        <span class="dot" style="background:#febc2e"></span>
+        <span class="dot" style="background:#28c840"></span>
+        <span class="url">Personal Agent — chat en vivo</span>
+      </div>
+      <div class="chat-roll" id="chatRoll">
+        <img src="OpenPixie -screen.png" alt="Personal Agent — agente ejecutivo con IA">
+      </div>
+    </div>
+    <div class="reveal">
+      <ul class="agent-list">
+        <li>Conversación por voz en tiempo real</li>
+        <li>Conectado a tu ecosistema</li>
+        <li>Agenda, responde y deriva consultas</li>
+        <li>Disponible 24/7, todos los días del año</li>
+      </ul>
+      <a class="btn btn-blue" href="https://pixie-agent-ai-businnes-solutions-517371493409.us-west1.run.app/" target="_blank" rel="noopener">🗣️ Hablar con Personal Agent</a>
+    </div>
+  </div>
+</section>
+
+<!-- PERFIL -->
+<section id="perfil">
+  <div class="perfil-wrap">
+    <img class="reveal" src="persona perfil.png" alt="David Alexander — Perfect Pixel">
+    <div class="reveal">
+      <span class="script">Candidato a</span>
+      <h2>Director de Tecnología<br>IA & Automatización</h2>
+      <p>Especialista en IA Automation con experiencia comprobable definiendo e implementando estrategias tecnológicas orientadas a objetivos de negocio. Autogestión total en remoto, liderazgo de equipos técnicos y pasión por crear herramientas innovadoras con impacto real — como un asistente IA para los +1.500 millones de profesionales independientes del mundo.</p>
+      <a class="btn btn-blue" href="Cv David Alexander.pdf" target="_blank" rel="noopener">Descargar CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <span class="script">Hablemos</span>
+  <h2>Desarrollemos tu proyecto</h2>
+  <p class="footnote">con eficiencia y buen gusto</p>
+  <div class="socials">
+    <a href="https://www.linkedin.com/in/perfectpixelmk" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/perfectpixel.mk" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/perfectpixel.mk" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://wa.link/mctip8" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="http://perfectpixel-aisolutions.com" target="_blank" rel="noopener">perfectpixel-aisolutions.com</a>
+  </div>
+  <small>© 2026 Perfect Pixel — Ecosistemas digitales integrados con IA</small>
+</footer>
+
+<!-- PLAYER POPUP -->
+<div class="modal-overlay" id="videoModal" onclick="if(event.target===this)closeVideoModal()">
+  <div class="modal-box">
+    <button class="modal-close" type="button" onclick="closeVideoModal()" aria-label="Cerrar">✕</button>
+    <iframe id="videoModalFrame" src="" title="Reproductor de video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}
+}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+function filterGallery(category,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#gallery .card').forEach(card=>{
+    const show = category==='all' || card.getAttribute('data-category')===category;
+    card.classList.toggle('hide',!show);
+    if(show){card.classList.add('on')}
+  });
+}
+
+// Player popup de video
+function openVideoModal(id){
+  var overlay=document.getElementById('videoModal');
+  document.getElementById('videoModalFrame').src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideoModal(){
+  var overlay=document.getElementById('videoModal');
+  overlay.classList.remove('open');
+  document.getElementById('videoModalFrame').src='';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVideoModal()});
+
+// Intro: video directo con sonido inmediato. Sin botones. Fade al terminar.
+(function(){
+  const intro=document.getElementById('intro');
+  const video=document.getElementById('introVideo');
+  const audio=document.getElementById('introAudio');
+  const hint=document.getElementById('soundHint');
+  if(!intro||!video)return;
+  let ended=false,listening=false;
+  const end=()=>{
+    if(ended)return;ended=true;
+    audio.pause();
+    hint.classList.remove('show');
+    intro.classList.add('done');
+    window.removeEventListener('pointerdown',onGesture);
+    window.removeEventListener('keydown',onGesture);
+  };
+  function onGesture(){
+    try{audio.currentTime=video.currentTime||0}catch(e){}
+    audio.play().catch(function(){});
+    hint.classList.remove('show');
+    window.removeEventListener('pointerdown',onGesture);
+    window.removeEventListener('keydown',onGesture);
+  }
+  video.play().catch(function(){end()});
+  audio.play().then(function(){
+    hint.classList.remove('show');
+  }).catch(function(){
+    if(!listening){listening=true;hint.classList.add('show');
+      window.addEventListener('pointerdown',onGesture);
+      window.addEventListener('keydown',onGesture);}
+  });
+  video.addEventListener('ended',end);
+  video.addEventListener('error',end);
+  setTimeout(function(){if(video.readyState<2)end()},15000);
+})();
+</script>
+</body>
+</html>
